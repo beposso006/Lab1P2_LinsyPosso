@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -47,8 +49,8 @@ public class Lab2P1_LinsyPosso {
                 case 2:
                     listarTodo();
                     break;
-                    
-                case 3:    
+
+                case 3:
 
             }
 
@@ -63,41 +65,80 @@ public class Lab2P1_LinsyPosso {
         System.out.print("Ingrese su fecha de nacimiento MM/dd/yyyy: ");
         String fNacimiento = Leer.next();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha = sd.parse(fNacimiento);  
-        if (!validarFecha(fecha)) {
-            System.out.println("Intente de nuevo");
-            return;
-        }
+        Date fecha = sd.parse(fNacimiento);
         System.out.print("Ingrese su correo electronico: ");
         String correo = Leer.next();
         System.out.print("Ingrese su contraseña: ");
         String contra = Leer.next();
-        validarFecha(fecha);
         Registro list = new Registro(nombre, apellido, fecha, correo, contra);
         reg.add(list);
-        System.out.println("Su registro a sido exitoso");
+        while (validarFecha(fecha) == true) {
+            System.out.print("Ingrese su nombre: ");
+            nombre = Leer.next();
+            System.out.print("Ingrese su apellido: ");
+            apellido = Leer.next();
+            System.out.print("Ingrese su fecha de nacimiento MM/dd/yyyy: ");
+            fNacimiento = Leer.next();
+            //SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+            fecha = sd.parse(fNacimiento);
+            System.out.print("Ingrese su correo electronico: ");
+            correo = Leer.next();
+            System.out.print("Ingrese su contraseña: ");
+            contra = Leer.next();
+            list = new Registro(nombre, apellido, fecha, correo, contra);
+            reg.add(list);
+        }
+        while (validarCorreo(correo)) {
+            System.out.print("Ingrese su nombre: ");
+            nombre = Leer.next();
+            System.out.print("Ingrese su apellido: ");
+            apellido = Leer.next();
+            System.out.print("Ingrese su fecha de nacimiento MM/dd/yyyy: ");
+            fNacimiento = Leer.next();
+            //SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+            fecha = sd.parse(fNacimiento);
+            System.out.print("Ingrese su correo electronico: ");
+            correo = Leer.next();
+            System.out.print("Ingrese su contraseña: ");
+            contra = Leer.next();
+            list = new Registro(nombre, apellido, fecha, correo, contra);
+            reg.add(list);
+        }
+
     }
-    
-    public static void listarTodo(){
+
+    public static void listarTodo() {
         for (int i = 0; i < reg.size(); i++) {
             System.out.println(reg.get(i).toString());
-        }    
+        }
     }
-    
-    public static void listarporDominio(){
-    
+
+    public static void listarporDominio() {
 
     }
-    
-    public static boolean validarFecha (Date fecha){
-         Date ahora = new Date();
-         boolean acord = false;
-         if (ahora.getYear()-fecha.getYear()<=13) {
-             System.out.println("Tiene que tener al menos 13 años");            
-         }
-         acord = true;
-         return acord;
-         }        
-    }
-    
 
+    public static boolean validarFecha(Date fecha) {
+        Date ahora = new Date();
+        boolean acord = false;
+        if (ahora.getYear() - fecha.getYear() <= 13) {
+            System.out.println("Tiene que tener al menos 13 años");
+        }
+        acord = true;
+        return acord;
+    }
+
+    public static boolean validarCorreo(String email) {
+        String regex = "^[a-zA-Z0-9._%&$+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean validarContra(String contra) {
+        String regex = "^[a-zA-Z0-9._%&$+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(contra);
+        return matcher.matches();
+    }
+
+}

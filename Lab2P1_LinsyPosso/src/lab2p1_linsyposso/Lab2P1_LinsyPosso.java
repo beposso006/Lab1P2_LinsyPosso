@@ -66,10 +66,16 @@ public class Lab2P1_LinsyPosso {
         String fNacimiento = Leer.next();
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         Date fecha = sd.parse(fNacimiento);
-        System.out.print("Ingrese su correo electronico: ");
-        String correo = Leer.next();
-        System.out.print("Ingrese su contraseña: ");
-        String contra = Leer.next();
+        String correo = "";
+            while (!validarCorreo(correo)) {
+                System.out.print("Ingrese su correo electronico: ");
+                correo = Leer.next();
+            }
+            String contra =  "";
+            while (!validarContra(contra)) {
+                System.out.print("Ingrese su contraseña: ");
+                contra = Leer.next();
+            }
         Registro list = new Registro(nombre, apellido, fecha, correo, contra);
         reg.add(list);
         while (validarFecha(fecha) == true) {
@@ -81,26 +87,16 @@ public class Lab2P1_LinsyPosso {
             fNacimiento = Leer.next();
             //SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
             fecha = sd.parse(fNacimiento);
-            System.out.print("Ingrese su correo electronico: ");
-            correo = Leer.next();
-            System.out.print("Ingrese su contraseña: ");
-            contra = Leer.next();
-            list = new Registro(nombre, apellido, fecha, correo, contra);
-            reg.add(list);
-        }
-        while (validarCorreo(correo)) {
-            System.out.print("Ingrese su nombre: ");
-            nombre = Leer.next();
-            System.out.print("Ingrese su apellido: ");
-            apellido = Leer.next();
-            System.out.print("Ingrese su fecha de nacimiento MM/dd/yyyy: ");
-            fNacimiento = Leer.next();
-            //SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-            fecha = sd.parse(fNacimiento);
-            System.out.print("Ingrese su correo electronico: ");
-            correo = Leer.next();
-            System.out.print("Ingrese su contraseña: ");
-            contra = Leer.next();
+            correo = "";
+            while (!validarCorreo(correo)) {
+                System.out.print("Ingrese su correo electronico: ");
+                correo = Leer.next();
+            }
+            contra =  "";
+            while (!validarContra(contra)) {
+                System.out.print("Ingrese su contraseña: ");
+                contra = Leer.next();
+            }     
             list = new Registro(nombre, apellido, fecha, correo, contra);
             reg.add(list);
         }
@@ -122,8 +118,8 @@ public class Lab2P1_LinsyPosso {
         boolean acord = false;
         if (ahora.getYear() - fecha.getYear() <= 13) {
             System.out.println("Tiene que tener al menos 13 años");
+            acord = true;
         }
-        acord = true;
         return acord;
     }
 
@@ -134,11 +130,13 @@ public class Lab2P1_LinsyPosso {
         return matcher.matches();
     }
 
-    public static boolean validarContra(String contra) {
-        String regex = "^[a-zA-Z0-9._%&$+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    public static boolean validarContra(String pass) {
+        String regex = "^[a-zA-Z0-9._%&$+-?<>!]{8,}$";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(contra);
+        Matcher matcher = pattern.matcher(pass);
         return matcher.matches();
     }
+    
+    
 
 }

@@ -4,6 +4,7 @@
  */
 package lab2p1_linsyposso;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class Registro {
     Date fNacimiento;
     String correo;
     String contraseña;
-
+    SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
     public Registro(String nombre, String apellido, Date fNacimiento, String correo, String contraseña) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -67,7 +68,7 @@ public class Registro {
 
     @Override
     public String toString() {
-        return "Registro{" + "nombre=" + nombre + ", apellido=" + apellido + ", fNacimiento=" + fNacimiento + ", correo=" + correo + ", contrase\u00f1a=" + contraseña + '}';
+        return "Nombre: " + nombre + "\nApellido: " + apellido + "\nFecha de Nacimiento: " + f.format(fNacimiento) + "\nCorreo: " + correo + "\nContraseña: " + contraseña;
     }
 
    

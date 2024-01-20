@@ -27,7 +27,6 @@ public class Lab2P1_LinsyPosso {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         boolean running = true;
         while (running) {
             System.out.println("--Menu--");
@@ -51,7 +50,13 @@ public class Lab2P1_LinsyPosso {
                     break;
 
                 case 3:
+                    listarporDominio();
+                    break;
 
+                case 4:
+                default:
+                    running = false;
+                    System.out.println("Byee");
             }
 
         }
@@ -67,15 +72,15 @@ public class Lab2P1_LinsyPosso {
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         Date fecha = sd.parse(fNacimiento);
         String correo = "";
-            while (!validarCorreo(correo)) {
-                System.out.print("Ingrese su correo electronico: ");
-                correo = Leer.next();
-            }
-            String contra =  "";
-            while (!validarContra(contra)) {
-                System.out.print("Ingrese su contraseña: ");
-                contra = Leer.next();
-            }
+        while (!validarCorreo(correo)) {
+            System.out.print("Ingrese su correo electronico: ");
+            correo = Leer.next();
+        }
+        String contra = "";
+        while (!validarContra(contra)) {
+            System.out.print("Ingrese su contraseña: ");
+            contra = Leer.next();
+        }
         Registro list = new Registro(nombre, apellido, fecha, correo, contra);
         reg.add(list);
         while (validarFecha(fecha) == true) {
@@ -92,11 +97,11 @@ public class Lab2P1_LinsyPosso {
                 System.out.print("Ingrese su correo electronico: ");
                 correo = Leer.next();
             }
-            contra =  "";
+            contra = "";
             while (!validarContra(contra)) {
                 System.out.print("Ingrese su contraseña: ");
                 contra = Leer.next();
-            }     
+            }
             list = new Registro(nombre, apellido, fecha, correo, contra);
             reg.add(list);
         }
@@ -110,7 +115,31 @@ public class Lab2P1_LinsyPosso {
     }
 
     public static void listarporDominio() {
+        for (int i = 0; i < reg.size(); i++) {
+            Registro temp = reg.get(i);
+            String cadena = reg.get(i).getCorreo();
+            String[] data = cadena.split("@");
 
+            if (data[1].equals("gmail.com")) {
+                System.out.println("Gmail");
+                System.out.println(temp.toString());
+            } else if (data[1].equals("outlook.com")) {
+                System.out.println("Outlook");
+                System.out.println(temp.toString());
+            }else if (data[1].equals("yahoo.com")) {
+                System.out.println("Yahoo");
+                System.out.println(temp.toString());
+            }else if (data[1].equals("icloud.com")) {
+                System.out.println("iCloud");
+                System.out.println(temp.toString());
+            }else if (data[1].equals("protonmail.com")) {
+                System.out.println("ProtonMail");
+                System.out.println(temp.toString());
+            }else if (data[1].equals("fastmail.com")) {
+                System.out.println("FastMail");
+                System.out.println(temp.toString());
+            }
+        }
     }
 
     public static boolean validarFecha(Date fecha) {
@@ -136,7 +165,5 @@ public class Lab2P1_LinsyPosso {
         Matcher matcher = pattern.matcher(pass);
         return matcher.matches();
     }
-    
-    
 
 }
